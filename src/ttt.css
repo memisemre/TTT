@@ -1,0 +1,106 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
+/* font-family: 'Ms Madi', cursive; */
+/* Reset Css */
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: 'Ms Madi', cursive;
+    font-weight: bold;
+}
+/* **************** */
+
+body {
+    background-color: #FFB200;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+span {
+    margin-right: 15px;
+}
+.title {
+    font-size: 4rem;
+    border: 5px solid black;
+    padding: 10px 25px 10px 25px;
+    border-radius: 25px;
+}
+.current-player {
+    font-size: 3rem;
+    margin-top: 1rem;
+    border: 3px solid black;
+    padding: 7px 10px 7px 10px;
+    border-radius: 15px;
+}
+.current-player-value{
+    color: white;
+    padding-left: 5px;
+}
+.table-area {
+    width: 40rem;
+    height: 40rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+.table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    width: 99%;
+    height: 99%;
+    border: 3px solid black;
+    border-radius: 15px;
+    background-color: #FFCB42;
+    margin: 3px;
+    transition: 0.5s all;
+    color: #277BC0;
+
+}
+.table:hover {
+    background-color: #FFF9CA;
+    font-size: 5rem;
+}
+.score-board {
+    height: 15rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid black;
+    border-radius: 15px ;
+}
+.score-board-title {
+    font-size: 3rem;
+    margin: 15px;
+}
+.total-game {
+    font-size: 2rem;
+}
+.total-game span {
+    color: white;
+}
+.score-board-text {
+    font-size: 2rem;
+}
+.score-board-text span {
+    color: white;
+}
+.reset-button {
+    background-color: green;
+    width: 350px;
+    height: 7rem;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    border: 5px solid black;
+    border-radius: 25px;
+}
