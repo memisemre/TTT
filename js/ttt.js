@@ -9,6 +9,7 @@ let xScore = 0;
 let oScore = 0;
 let tieScore = 0;
 let controlWin = false;
+let controlTie = false;
 let currentPlayer = "X";
 gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)))
 function chooseTable(table){  
@@ -17,6 +18,13 @@ function chooseTable(table){
         turnPlayer();
         winningActions();  
         checkTie();
+        if (controlWin == false && controlTie == true){
+            totalGame++;
+            totalGameArea.textContent = totalGame;
+            tieScore++;
+            tieScoreUpdate.textContent = tieScore;
+            alert("berabere")
+        }
     }
     else {
         alert("Burası Dolu Hocam.")
@@ -54,21 +62,22 @@ function winningActions (){
             oScoreUpdate.textContent=oScore;
         }
         currentPlayer = "X"
+        currentPlayerValue.textContent = currentPlayer;
     }
 }
 function checkTie (){
     const values = [];
     gameTable.forEach(table => values.push(table.textContent))
     if (!values.includes("")) {
-        alert("berabere")
-        totalGame++;
-        totalGameArea.textContent = totalGame;
-        tieScore++;
-        tieScoreUpdate.textContent = tieScore;
+        controlTie = true;
     }
 }
 document.querySelector('.reset-button').onclick = function(){
     gameTable.forEach(function(table){
         table.textContent = ""
     })
+    currentPlayer = "X"
+    currentPlayerValue.textContent = currentPlayer;
+    controlWin = false;
+    controlTie = false;
 }
