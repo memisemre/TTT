@@ -104,3 +104,24 @@ span {
     border: 5px solid black;
     border-radius: 25px;
 }
+.timer-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.timer-area-x,
+.timer-area-o {
+    width: 10rem;
+    height: 155px;
+    margin: 25px;
+    border: 3px solid black;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.timer-area-x-text,
+.timer-area-o-text {
+    color: #277BC0;
+    font-weight: bold;
+}

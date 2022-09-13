@@ -4,6 +4,9 @@ const totalGameArea = document.querySelector('.total-game-value');
 const xScoreUpdate = document.querySelector('.x-score');
 const oScoreUpdate = document.querySelector('.o-score');
 const tieScoreUpdate = document.querySelector('.tie-score')
+let timerTextX = document.querySelector('.timer-area-x-text')
+let timerTextO = document.querySelector('.timer-area-o-text')
+let timerValue = 5;
 let totalGame = 0;
 let xScore = 0;
 let oScore = 0;
@@ -80,4 +83,17 @@ document.querySelector('.reset-button').onclick = function(){
     currentPlayerValue.textContent = currentPlayer;
     controlWin = false;
     controlTie = false;
+}
+setInterval (timer,1000);
+function timer (){
+    if (timerValue > 0){
+        timerValue--;
+        console.log(timerValue)
+        timerTextX.textContent = timerValue
+    }
+    else {
+        turnPlayer()
+        clearInterval()
+        timerValue = 5;
+    }
 }
