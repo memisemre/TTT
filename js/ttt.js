@@ -36,9 +36,13 @@ function chooseTable(table){
 function turnPlayer(){
     if (currentPlayer==="X"){
         currentPlayer="O"
+        timerTextX.textContent = 0;
+        timerValue = 5;
     }
     else {
+        timerTextO.textContent = 0;
         currentPlayer="X"
+        timerValue = 5;
     }
     currentPlayerValue.textContent = currentPlayer
 }
@@ -66,6 +70,8 @@ function winningActions (){
         }
         currentPlayer = "X"
         currentPlayerValue.textContent = currentPlayer;
+        timerValue = 0;
+        clearInterval ()
     }
 }
 function checkTie (){
@@ -73,6 +79,9 @@ function checkTie (){
     gameTable.forEach(table => values.push(table.textContent))
     if (!values.includes("")) {
         controlTie = true;
+        timerTextO.textContent = 0;
+        timerTextX. textContent = 0;
+        clearInterval()
     }
 }
 document.querySelector('.reset-button').onclick = function(){
@@ -83,17 +92,27 @@ document.querySelector('.reset-button').onclick = function(){
     currentPlayerValue.textContent = currentPlayer;
     controlWin = false;
     controlTie = false;
+    timerValue = 5;
 }
 setInterval (timer,1000);
 function timer (){
     if (timerValue > 0){
-        timerValue--;
-        console.log(timerValue)
-        timerTextX.textContent = timerValue
+        if (currentPlayer === "X") {
+            timerTextX.textContent = timerValue;
+            timerValue--;
+        }
+        else {
+            timerTextO.textContent = timerValue;
+            timerValue--;
+        }
     }
-    else {
+    else if (timerValue == 0){
+        timerTextO.textContent = 0;
+        timerTextX.textContent = 0;
         turnPlayer()
-        clearInterval()
         timerValue = 5;
     }
+    else (
+        clearInterval()
+    )
 }
