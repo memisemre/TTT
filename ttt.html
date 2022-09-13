@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="/src/ttt.css">
 </head>
 <body>
+    <!-- Modal Area Start  -->
+    <div class="modal-area">
+        <div class="player-name-area">
+            <input type="text" placeholder="Player X" class="inputs input-player-X">
+            <input type="text" placeholder="Player O" class="inputs input-player-O">
+        </div>
+        <div class="game-start-button-area">
+            <button class="game-start-button">Start Game</button>
+        </div>
+    </div>  
+    <!-- Modal Area End  -->
+    <!-- Game Area Start  -->
+    <div class="game-area">
     <p class="title">Tic Tac Toe</p>
+    <div class="open-modal-area">
+        <button class="open-modal-button">Settings</button>
+    </div>
     <div class="info-area">
         <p class="current-player">Current Player : <span class="current-player-value">X</span></p>
     </div>
@@ -35,6 +51,8 @@
         <p class="total-game">Total Games Played : <span class="total-game-value"></span></p>
         <p class="score-board-text">X : <span class="x-score"></span> O :  <span class="o-score"></span> Tie : <span class="tie-score"></span></p>
     </div>
+</div>
+ <!-- Game Area End  -->
     <script src="/js/ttt.js"></script>
 </body>
 </html>

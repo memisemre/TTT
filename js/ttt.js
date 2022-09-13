@@ -6,6 +6,12 @@ const oScoreUpdate = document.querySelector('.o-score');
 const tieScoreUpdate = document.querySelector('.tie-score')
 let timerTextX = document.querySelector('.timer-area-x-text')
 let timerTextO = document.querySelector('.timer-area-o-text')
+let modalArea = document.querySelector('.modal-area')
+let gameArea = document.querySelector ('.game-area')
+let playerOneInput = document.querySelector('.input-player-X')
+let playerTwoInput = document.querySelector('.input-player-O')
+let playerOne; 
+let playerTwo;
 let timerValue = 5;
 let totalGame = 0;
 let xScore = 0;
@@ -13,10 +19,12 @@ let oScore = 0;
 let tieScore = 0;
 let controlWin = false;
 let controlTie = false;
-let currentPlayer = "X";
+let currentPlayer;
+
 gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)))
-function chooseTable(table){  
+function chooseTable(table){
     if (table.textContent ===""){
+        currentPlayer = playerOne
         table.textContent= currentPlayer
         turnPlayer();
         winningActions();  
@@ -32,16 +40,17 @@ function chooseTable(table){
     else {
         alert("Burası Dolu Hocam.")
     }
+    setInterval (timer,1000);
 };
 function turnPlayer(){
-    if (currentPlayer==="X"){
-        currentPlayer="O"
+    if (currentPlayer == playerOne){
+        currentPlayer = playerTwo;
         timerTextX.textContent = 0;
         timerValue = 5;
     }
     else {
         timerTextO.textContent = 0;
-        currentPlayer="X"
+        currentPlayer=playerOne;
         timerValue = 5;
     }
     currentPlayerValue.textContent = currentPlayer
@@ -68,7 +77,7 @@ function winningActions (){
             oScore++;
             oScoreUpdate.textContent=oScore;
         }
-        currentPlayer = "X"
+        currentPlayer = "playerOne"
         currentPlayerValue.textContent = currentPlayer;
         timerValue = 0;
         clearInterval ()
@@ -88,16 +97,15 @@ document.querySelector('.reset-button').onclick = function(){
     gameTable.forEach(function(table){
         table.textContent = ""
     })
-    currentPlayer = "X"
+    currentPlayer = "playerOne"
     currentPlayerValue.textContent = currentPlayer;
     controlWin = false;
     controlTie = false;
     timerValue = 5;
 }
-setInterval (timer,1000);
 function timer (){
     if (timerValue > 0){
-        if (currentPlayer === "X") {
+        if (currentPlayer === "playerOne") {
             timerTextX.textContent = timerValue;
             timerValue--;
         }
@@ -115,4 +123,14 @@ function timer (){
     else (
         clearInterval()
     )
+}
+document.querySelector('.game-start-button').onclick = function (){
+    playerOne = playerOneInput.value;
+    playerTwo = playerTwoInput.value;
+    gameArea.style.display = "flex";
+    modalArea.style.display = "none";
+}
+document.querySelector('.open-modal-button').onclick = function(){
+    gameArea.style.display = "none";
+    modalArea.style.display = "flex";
 }
