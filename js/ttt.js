@@ -12,6 +12,7 @@ let playerOneInput = document.querySelector('.input-player-X')
 let playerTwoInput = document.querySelector('.input-player-O')
 let playerOne; 
 let playerTwo;
+let currentText = "X";
 let timerValue = 5;
 let totalGame = 0;
 let xScore = 0;
@@ -25,7 +26,7 @@ gameTable.forEach(table => table.addEventListener('click',() => chooseTable(tabl
 function chooseTable(table){
     if (table.textContent ===""){
         currentPlayer = playerOne
-        table.textContent= currentPlayer
+        table.textContent= currentText;
         turnPlayer();
         winningActions();  
         checkTie();
@@ -45,12 +46,14 @@ function chooseTable(table){
 function turnPlayer(){
     if (currentPlayer == playerOne){
         currentPlayer = playerTwo;
+        currentText = "O"
         timerTextX.textContent = 0;
         timerValue = 5;
     }
     else {
         timerTextO.textContent = 0;
         currentPlayer=playerOne;
+        currentText = "X";
         timerValue = 5;
     }
     currentPlayerValue.textContent = currentPlayer
