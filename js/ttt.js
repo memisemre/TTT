@@ -21,8 +21,7 @@ let tieScore = 0;
 let controlWin = false;
 let controlTie = false;
 let currentPlayer;
-
-gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)))
+gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)));
 function chooseTable(table){
     if (table.textContent ===""){
         currentPlayer = playerOne
