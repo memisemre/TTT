@@ -7,6 +7,8 @@ const totalGameText = document.querySelector('.total-game-value');
 const tieScoreText = document.querySelector('.tie-score');
 const xScoreText = document.querySelector('.x-score');
 const oScoreText = document.querySelector('.o-score');
+const timerTextPlayerOne = document.querySelector('.timer-area-x-text')
+const timerTextPlayerTwo = document.querySelector('.timer-area-o-text')
 const playerXInput = document.querySelector('.input-player-X');
 const playerOInput = document.querySelector('.input-player-O');
 const scoreBoardX = document.querySelector('.player-x');
@@ -21,6 +23,7 @@ let totalGamePoint = 0;
 let activePlayer;
 let controlWinBoolean = false;
 let checkTieBoolean = false;
+let timerValue;
 function startGame (){
     gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)));
     activePlayer = playerOne;
@@ -30,6 +33,8 @@ function startGame (){
     tieScoreText.textContent = tieScore;
     xScoreText.textContent = xScore;
     oScoreText.textContent = oScore;
+    timerValue = 5;
+    setInterval(timer,1000);
 }
 function chooseTable(table){
     if (table.textContent === "" && controlWinBoolean === false){
@@ -82,8 +87,10 @@ function turnPlayer(){
         nextPlayer = playerOne;
         nextPlayerText.textContent = nextPlayer;
         activePlayerText.textContent = activePlayer;
+        timerValue = 5;
     }
     else {
+        timerValue = 5;
         activePlayer = playerOne;
         nextPlayer = playerTwo;
         nextPlayerText.textContent = nextPlayer;
@@ -117,6 +124,9 @@ function winningActions (){
         controlWinBoolean = true;
         totalGamePoint++;
         totalGameText.textContent = totalGamePoint;
+        timerValue = 0;
+        timerTextPlayerOne.textContent = timerValue;
+        timerTextPlayerTwo.textContent = timerValue;
 }}
 function checkTie(){
         const tieFunctionValues = [];
@@ -124,6 +134,32 @@ function checkTie(){
         if (!tieFunctionValues.includes("")) {
             checkTieBoolean = true;
 }}
+
+function timer (){
+    if (timerValue > 0 && controlWinBoolean == false){
+        if (activePlayer == playerOne){
+            timerTextPlayerOne.textContent = timerValue;
+            timerValue--;
+        }
+        else if (activePlayer == playerTwo){
+            timerTextPlayerTwo.textContent = timerValue;
+            timerValue--;
+        }
+    }
+    else if (timerValue == 0){
+        if (activePlayer == playerOne){
+            timerTextPlayerOne.textContent = timerValue;
+        }
+        else if (activePlayer == playerTwo){
+            timerTextPlayerTwo.textContent = timerValue; 
+        }
+        turnPlayer()
+    }
+   else (
+    clearInterval()
+   )
+    
+}
 document.querySelector('.reset-button').onclick = function(){
     gameTable.forEach(function(table){
         table.textContent = ""
@@ -133,6 +169,7 @@ document.querySelector('.reset-button').onclick = function(){
         nextPlayer = playerTwo;
         activePlayerText.textContent = activePlayer;
         nextPlayerText.textContent = nextPlayer;
+        timerValue = 5;
     })}
 document.querySelector('.game-start-button').onclick = function(){
     scoreBoardX.textContent = playerXInput.value;

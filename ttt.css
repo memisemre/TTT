@@ -172,4 +172,7 @@ span {
     font-size: 3rem;
     cursor: pointer;
 }
+.player-o {
+    margin-left: 15px;
+}
 /* Game Area End */
