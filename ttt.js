@@ -9,28 +9,39 @@ const xScoreText = document.querySelector('.x-score');
 const oScoreText = document.querySelector('.o-score');
 const playerXInput = document.querySelector('.input-player-X');
 const playerOInput = document.querySelector('.input-player-O');
-let nextPlayer = "O";
+const scoreBoardX = document.querySelector('.player-x');
+const scoreBoardO = document.querySelector('.player-o');
+let playerOne;
+let playerTwo;
+let nextPlayer;
 let oScore = 0;
 let xScore = 0;
 let tieScore = 0;
 let totalGamePoint = 0;
-let activePlayer = "X";
+let activePlayer;
 let controlWinBoolean = false;
 let checkTieBoolean = false;
 function startGame (){
     gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)));
+    activePlayer = playerOne;
+    nextPlayer = playerTwo;
     nextPlayerText.textContent = nextPlayer;
-    activePlayerText.textContent = "X";
+    activePlayerText.textContent = activePlayer;
     tieScoreText.textContent = tieScore;
     xScoreText.textContent = xScore;
     oScoreText.textContent = oScore;
 }
 function chooseTable(table){
     if (table.textContent === "" && controlWinBoolean === false){
-    table.textContent = activePlayer;
-    winningActions();
-    checkTie();
-    turnPlayer();
+        if (activePlayer == playerOne){
+            table.textContent= "X";
+        }
+        else {
+            table.textContent = "O";
+        }
+        winningActions();
+        checkTie();
+        turnPlayer();
             if (controlWinBoolean === false && checkTieBoolean === true){
                 Swal.fire({
                     icon: 'warning',
@@ -66,17 +77,17 @@ function chooseTable(table){
          }
 }
 function turnPlayer(){
-    if (activePlayer ==="X") {
-        activePlayer = "O";
-        nextPlayer = "X"
+    if (activePlayer == playerOne) {
+        activePlayer = playerTwo;
+        nextPlayer = playerOne;
         nextPlayerText.textContent = nextPlayer;
-        activePlayerText.textContent = "O"
+        activePlayerText.textContent = activePlayer;
     }
     else {
-        activePlayer = "X"
-        nextPlayer = "O"
+        activePlayer = playerOne;
+        nextPlayer = playerTwo;
         nextPlayerText.textContent = nextPlayer;
-        activePlayerText.textContent = "X";
+        activePlayerText.textContent = activePlayer;
     }
 }
 function winningActions (){
@@ -89,7 +100,7 @@ function winningActions (){
     const winCombinationsCrossOne = gameTable[0].textContent === gameTable[4].textContent && gameTable[0].textContent === gameTable[8].textContent && gameTable[0].textContent !="";
     const winCombinationsCrossTwo = gameTable[2].textContent === gameTable[4].textContent && gameTable[2].textContent === gameTable[6].textContent && gameTable[2].textContent !="";
     if (winCombinationsRowOne || winCombinationsRowTwo || winCombinationsRowThree || winCombinationsColumnOne || winCombinationsColumnTwo || winCombinationsColumnThree || winCombinationsCrossOne || winCombinationsCrossTwo){
-        if (activePlayer === "X"){
+        if (activePlayer == playerOne){
             xScore++;
             xScoreText.textContent = xScore;
         }
@@ -99,9 +110,10 @@ function winningActions (){
         }
         Swal.fire ({
             icon: 'success',
-            title: `${activePlayer} win.`,
+            title: `Player ,"${activePlayer}" won.`,
             text: 'Please, restart the game.'
         })
+        activePlayer = playerOne
         controlWinBoolean = true;
         totalGamePoint++;
         totalGameText.textContent = totalGamePoint;
@@ -117,12 +129,16 @@ document.querySelector('.reset-button').onclick = function(){
         table.textContent = ""
         controlWinBoolean = false;
         checkTieBoolean = false;
-        activePlayer = "X";
-        nextPlayer = "O";
+        activePlayer = playerOne;
+        nextPlayer = playerTwo;
         activePlayerText.textContent = activePlayer;
         nextPlayerText.textContent = nextPlayer;
     })}
 document.querySelector('.game-start-button').onclick = function(){
+    scoreBoardX.textContent = playerXInput.value;
+    scoreBoardO.textContent = playerOInput.value;
+    playerOne = playerXInput.value;
+    playerTwo = playerOInput.value;
     gameArea.style.display = "flex"
     modalArea.style.display = "none"
     startGame ();
