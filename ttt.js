@@ -1,61 +1,83 @@
 const gameTable = document.querySelectorAll('.table');
-const currentPlayerValue = document.querySelector('.current-player-value');
-const totalGameArea = document.querySelector('.total-game-value');
-const xScoreUpdate = document.querySelector('.x-score');
-const oScoreUpdate = document.querySelector('.o-score');
-const tieScoreUpdate = document.querySelector('.tie-score')
-let timerTextX = document.querySelector('.timer-area-x-text')
-let timerTextO = document.querySelector('.timer-area-o-text')
-let modalArea = document.querySelector('.modal-area')
-let gameArea = document.querySelector ('.game-area')
-let playerOneInput = document.querySelector('.input-player-X')
-let playerTwoInput = document.querySelector('.input-player-O')
-let playerOne; 
-let playerTwo;
-let currentText = "X";
-let timerValue = 5;
-let totalGame = 0;
-let xScore = 0;
+const modalArea = document.querySelector('.modal-area')
+const gameArea = document.querySelector('.game-area')
+const activePlayerText = document.querySelector('.active-player-text')
+const nextPlayerText = document.querySelector('.next-player-text');
+const totalGameText = document.querySelector('.total-game-value');
+const tieScoreText = document.querySelector('.tie-score');
+const xScoreText = document.querySelector('.x-score');
+const oScoreText = document.querySelector('.o-score');
+const playerXInput = document.querySelector('.input-player-X');
+const playerOInput = document.querySelector('.input-player-O');
+let nextPlayer = "O";
 let oScore = 0;
+let xScore = 0;
 let tieScore = 0;
-let controlWin = false;
-let controlTie = false;
-let currentPlayer;
-gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)));
+let totalGamePoint = 0;
+let activePlayer = "X";
+let controlWinBoolean = false;
+let checkTieBoolean = false;
+function startGame (){
+    gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)));
+    nextPlayerText.textContent = nextPlayer;
+    activePlayerText.textContent = "X";
+    tieScoreText.textContent = tieScore;
+    xScoreText.textContent = xScore;
+    oScoreText.textContent = oScore;
+}
 function chooseTable(table){
-    if (table.textContent ===""){
-        currentPlayer = playerOne
-        table.textContent= currentText;
-        turnPlayer();
-        winningActions();  
-        checkTie();
-        if (controlWin == false && controlTie == true){
-            totalGame++;
-            totalGameArea.textContent = totalGame;
-            tieScore++;
-            tieScoreUpdate.textContent = tieScore;
-            alert("berabere")
+    if (table.textContent === "" && controlWinBoolean === false){
+    table.textContent = activePlayer;
+    winningActions();
+    checkTie();
+    turnPlayer();
+            if (controlWinBoolean === false && checkTieBoolean === true){
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Game Tie!!!',
+                    text: 'Please, restart the game.',
+                })
+                totalGamePoint++;
+                totalGameText.textContent = totalGamePoint;
+                tieScore++;
+                tieScoreText.textContent = tieScore;
+            if (controlWinBoolean === true){
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Game Over!!!',
+                    text: 'Please, restart the game.',
+                })
+            }
+    }
+    }
+        else if (controlWinBoolean === true || checkTieBoolean === true){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Game End!!!',
+                text: 'Please, restart the game.',
+            })
         }
-    }
-    else {
-        alert("Burası Dolu Hocam.")
-    }
-    setInterval (timer,1000);
-};
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'The place you are trying to choose is full.',
+             })
+         }
+}
 function turnPlayer(){
-    if (currentPlayer == playerOne){
-        currentPlayer = playerTwo;
-        currentText = "O"
-        timerTextX.textContent = 0;
-        timerValue = 5;
+    if (activePlayer ==="X") {
+        activePlayer = "O";
+        nextPlayer = "X"
+        nextPlayerText.textContent = nextPlayer;
+        activePlayerText.textContent = "O"
     }
     else {
-        timerTextO.textContent = 0;
-        currentPlayer=playerOne;
-        currentText = "X";
-        timerValue = 5;
+        activePlayer = "X"
+        nextPlayer = "O"
+        nextPlayerText.textContent = nextPlayer;
+        activePlayerText.textContent = "X";
     }
-    currentPlayerValue.textContent = currentPlayer
 }
 function winningActions (){
     const winCombinationsRowOne = gameTable[0].textContent === gameTable[1].textContent && gameTable[0].textContent === gameTable[2].textContent && gameTable[0].textContent !="";
@@ -67,72 +89,41 @@ function winningActions (){
     const winCombinationsCrossOne = gameTable[0].textContent === gameTable[4].textContent && gameTable[0].textContent === gameTable[8].textContent && gameTable[0].textContent !="";
     const winCombinationsCrossTwo = gameTable[2].textContent === gameTable[4].textContent && gameTable[2].textContent === gameTable[6].textContent && gameTable[2].textContent !="";
     if (winCombinationsRowOne || winCombinationsRowTwo || winCombinationsRowThree || winCombinationsColumnOne || winCombinationsColumnTwo || winCombinationsColumnThree || winCombinationsCrossOne || winCombinationsCrossTwo){
-        alert("oyun bitti")
-        totalGame++;
-        totalGameArea.textContent = totalGame ;
-        controlWin = true;
-        if(currentPlayer ==="O"){
+        if (activePlayer === "X"){
             xScore++;
-            xScoreUpdate.textContent=xScore;
+            xScoreText.textContent = xScore;
         }
-        else if (currentPlayer==="X"){
+        else {
             oScore++;
-            oScoreUpdate.textContent=oScore;
+            oScoreText.textContent = oScore;
         }
-        currentPlayer = "playerOne"
-        currentPlayerValue.textContent = currentPlayer;
-        timerValue = 0;
-        clearInterval ()
-    }
-}
-function checkTie (){
-    const values = [];
-    gameTable.forEach(table => values.push(table.textContent))
-    if (!values.includes("")) {
-        controlTie = true;
-        timerTextO.textContent = 0;
-        timerTextX. textContent = 0;
-        clearInterval()
-    }
-}
+        Swal.fire ({
+            icon: 'success',
+            title: `${activePlayer} win.`,
+            text: 'Please, restart the game.'
+        })
+        controlWinBoolean = true;
+        totalGamePoint++;
+        totalGameText.textContent = totalGamePoint;
+}}
+function checkTie(){
+        const tieFunctionValues = [];
+        gameTable.forEach(table => tieFunctionValues.push(table.textContent))
+        if (!tieFunctionValues.includes("")) {
+            checkTieBoolean = true;
+}}
 document.querySelector('.reset-button').onclick = function(){
     gameTable.forEach(function(table){
         table.textContent = ""
-    })
-    currentPlayer = "playerOne"
-    currentPlayerValue.textContent = currentPlayer;
-    controlWin = false;
-    controlTie = false;
-    timerValue = 5;
-}
-function timer (){
-    if (timerValue > 0){
-        if (currentPlayer === "playerOne") {
-            timerTextX.textContent = timerValue;
-            timerValue--;
-        }
-        else {
-            timerTextO.textContent = timerValue;
-            timerValue--;
-        }
-    }
-    else if (timerValue == 0){
-        timerTextO.textContent = 0;
-        timerTextX.textContent = 0;
-        turnPlayer()
-        timerValue = 5;
-    }
-    else (
-        clearInterval()
-    )
-}
-document.querySelector('.game-start-button').onclick = function (){
-    playerOne = playerOneInput.value;
-    playerTwo = playerTwoInput.value;
-    gameArea.style.display = "flex";
-    modalArea.style.display = "none";
-}
-document.querySelector('.open-modal-button').onclick = function(){
-    gameArea.style.display = "none";
-    modalArea.style.display = "flex";
+        controlWinBoolean = false;
+        checkTieBoolean = false;
+        activePlayer = "X";
+        nextPlayer = "O";
+        activePlayerText.textContent = activePlayer;
+        nextPlayerText.textContent = nextPlayer;
+    })}
+document.querySelector('.game-start-button').onclick = function(){
+    gameArea.style.display = "flex"
+    modalArea.style.display = "none"
+    startGame ();
 }
