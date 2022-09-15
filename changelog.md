@@ -10,6 +10,7 @@
 --Edited value name's.  
 --Fix timer problems.  
 --The current player field has been replaced by the active player and next player buttons.  
+--Add Meta tag's.  
 #### V1.3  
 ---  
 Bug Fix and Editing Properties  
