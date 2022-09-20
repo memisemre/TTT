@@ -1,5 +1,16 @@
 # **Tic Tac Toe**  
 ### Changelog  
+#### V2  
+---  
+--Faulty functions have been corrected.  
+--Added Sweet Alert.  
+--Player names have been added to the leaderboard.  
+--Change alert box's.  
+--Delete the settings button.  
+--Edited value name's.  
+--Fix timer problems.  
+--The current player field has been replaced by the active player and next player buttons.  
+--Add Meta tag's.  
 #### V1.3  
 ---  
 Bug Fix and Editing Properties  
