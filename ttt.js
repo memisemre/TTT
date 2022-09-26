@@ -1,40 +1,34 @@
-const gameTable = document.querySelectorAll('.table');
-const modalArea = document.querySelector('.modal-area')
-const gameArea = document.querySelector('.game-area')
-const activePlayerText = document.querySelector('.active-player-text')
-const nextPlayerText = document.querySelector('.next-player-text');
-const totalGameText = document.querySelector('.total-game-value');
+const gameTable = document.querySelectorAll('.game-table');
+const homePage = document.querySelector('.homepage-area');
+const gameArea = document.querySelector('.game-area');
+const scoreBoard = document.querySelector('.score-board-area');
+const resetButton = document.querySelector('.reset-button');
+const playerOneInput = document.querySelector('.player-one-name-input');
+const playerTwoInput = document.querySelector('.player-two-name-input');
+const playerOneName = document.querySelector('.player-one-name');
+const playerTwoName = document.querySelector('.player-two-name');
+const playerOneTimerText = document.querySelector('.player-one-timer-area-text');
+const playerTwoTimerText = document.querySelector('.player-two-timer-area-text');
+const playerOneScore = document.querySelector('.player-one-score');
+const playerTwoScore = document.querySelector('.player-two-score')
 const tieScoreText = document.querySelector('.tie-score');
-const xScoreText = document.querySelector('.x-score');
-const oScoreText = document.querySelector('.o-score');
-const timerTextPlayerOne = document.querySelector('.timer-area-x-text')
-const timerTextPlayerTwo = document.querySelector('.timer-area-o-text')
-const playerXInput = document.querySelector('.input-player-X');
-const playerOInput = document.querySelector('.input-player-O');
-const scoreBoardX = document.querySelector('.player-x');
-const scoreBoardO = document.querySelector('.player-o');
-let playerOne;
-let playerTwo;
-let nextPlayer;
+const playerOneInfoName = document.querySelector('.player-one-info-name')
+const playerTwoInfoName = document.querySelector('.player-two-info-name')
 let oScore = 0;
 let xScore = 0;
 let tieScore = 0;
-let totalGamePoint = 0;
-let activePlayer;
 let controlWinBoolean = false;
 let checkTieBoolean = false;
-let timerValue;
-function startGame (){
-    gameTable.forEach(table => table.addEventListener('click',() => chooseTable(table)));
+let playerOne,playerTwo,nextPlayer,timerValue,activePlayer;
+function startGame(){
+    gameTable.forEach(table=> table.addEventListener('click',()=> chooseTable(table)));
     activePlayer = playerOne;
     nextPlayer = playerTwo;
-    nextPlayerText.textContent = nextPlayer;
-    activePlayerText.textContent = activePlayer;
     tieScoreText.textContent = tieScore;
-    xScoreText.textContent = xScore;
-    oScoreText.textContent = oScore;
+    playerOneScore.textContent = xScore;
+    playerTwoScore.textContent = oScore;
     timerValue = 5;
-    setInterval(timer,1000);
+    setInterval(timer,1000)
 }
 function chooseTable(table){
     if (table.textContent === "" && controlWinBoolean === false){
@@ -48,53 +42,34 @@ function chooseTable(table){
         checkTie();
         turnPlayer();
             if (controlWinBoolean === false && checkTieBoolean === true){
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Game Tie!!!',
-                    text: 'Please, restart the game.',
-                })
                 totalGamePoint++;
                 totalGameText.textContent = totalGamePoint;
                 tieScore++;
                 tieScoreText.textContent = tieScore;
-            if (controlWinBoolean === true){
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Game Over!!!',
-                    text: 'Please, restart the game.',
-                })
             }
-    }
-    }
+            if (controlWinBoolean === true){
+            alert(`${nextPlayer} Win.`) // Will be added Custom Alert Box
+            }
         else if (controlWinBoolean === true || checkTieBoolean === true){
-            Swal.fire({
-                icon: 'warning',
-                title: 'Game End!!!',
-                text: 'Please, restart the game.',
-            })
+            alert("Game Tie. Please Restart The Game!")// Will be added Custom Alert Box
         }
-        else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'The place you are trying to choose is full.',
-             })
-         }
+    }
+    else {
+        alert("gameover") // Will be added Custom Alert Box
+        }
 }
 function turnPlayer(){
     if (activePlayer == playerOne) {
         activePlayer = playerTwo;
         nextPlayer = playerOne;
-        nextPlayerText.textContent = nextPlayer;
-        activePlayerText.textContent = activePlayer;
         timerValue = 5;
+        playerOneTimerText.textContent = "0";
     }
     else {
+        playerTwoTimerText.textContent = "0";
         timerValue = 5;
         activePlayer = playerOne;
         nextPlayer = playerTwo;
-        nextPlayerText.textContent = nextPlayer;
-        activePlayerText.textContent = activePlayer;
     }
 }
 function winningActions (){
@@ -109,74 +84,73 @@ function winningActions (){
     if (winCombinationsRowOne || winCombinationsRowTwo || winCombinationsRowThree || winCombinationsColumnOne || winCombinationsColumnTwo || winCombinationsColumnThree || winCombinationsCrossOne || winCombinationsCrossTwo){
         if (activePlayer == playerOne){
             xScore++;
-            xScoreText.textContent = xScore;
+            playerOneScore.textContent = xScore;
         }
         else {
             oScore++;
-            oScoreText.textContent = oScore;
+            playerTwoScore.textContent = oScore;
         }
-        Swal.fire ({
-            icon: 'success',
-            title: `Player ,"${activePlayer}" won.`,
-            text: 'Please, restart the game.'
-        })
         activePlayer = playerOne
         controlWinBoolean = true;
-        totalGamePoint++;
-        totalGameText.textContent = totalGamePoint;
         timerValue = 0;
-        timerTextPlayerOne.textContent = timerValue;
-        timerTextPlayerTwo.textContent = timerValue;
+        playerOneTimerText.textContent = timerValue;
+        playerTwoTimerText.textContent = timerValue;
 }}
 function checkTie(){
-        const tieFunctionValues = [];
-        gameTable.forEach(table => tieFunctionValues.push(table.textContent))
-        if (!tieFunctionValues.includes("")) {
-            checkTieBoolean = true;
+    const tieFunctionValues = [];
+    gameTable.forEach(table => tieFunctionValues.push(table.textContent))
+    if (!tieFunctionValues.includes("")) {
+        checkTieBoolean = true;
 }}
-
 function timer (){
     if (timerValue > 0 && controlWinBoolean == false){
         if (activePlayer == playerOne){
-            timerTextPlayerOne.textContent = timerValue;
+            playerOneTimerText.textContent = timerValue;
             timerValue--;
         }
         else if (activePlayer == playerTwo){
-            timerTextPlayerTwo.textContent = timerValue;
+            playerTwoTimerText.textContent = timerValue;
             timerValue--;
         }
     }
     else if (timerValue == 0){
         if (activePlayer == playerOne){
-            timerTextPlayerOne.textContent = timerValue;
+            playerOneTimerText.textContent = timerValue;
         }
         else if (activePlayer == playerTwo){
-            timerTextPlayerTwo.textContent = timerValue; 
+            playerTwoTimerText.textContent = timerValue; 
         }
         turnPlayer()
     }
    else (
     clearInterval()
    )
-    
+}
+document.querySelector('.start-button').onclick = function(){
+    if(playerOneInput.value !=="" && playerTwoInput.value !== ""){
+    playerOne = playerOneInput.value;
+    playerTwo = playerTwoInput.value;
+    playerOneName.textContent = playerOne;
+    playerTwoName.textContent = playerTwo;
+    playerOneInfoName.textContent = playerOne;
+    playerTwoInfoName.textContent = playerTwo;
+    homePage.style.display = "none";
+    gameArea.style.display = "flex";
+    scoreBoard.style.display = "flex";
+    resetButton.style.display = "block";
+    startGame();
+    }
+    else{
+        alert("enter your names")// Will be added Custom Alert Box
+    }
 }
 document.querySelector('.reset-button').onclick = function(){
     gameTable.forEach(function(table){
-        table.textContent = ""
+        table.textContent = "";
         controlWinBoolean = false;
         checkTieBoolean = false;
         activePlayer = playerOne;
         nextPlayer = playerTwo;
-        activePlayerText.textContent = activePlayer;
-        nextPlayerText.textContent = nextPlayer;
         timerValue = 5;
-    })}
-document.querySelector('.game-start-button').onclick = function(){
-    scoreBoardX.textContent = playerXInput.value;
-    scoreBoardO.textContent = playerOInput.value;
-    playerOne = playerXInput.value;
-    playerTwo = playerOInput.value;
-    gameArea.style.display = "flex"
-    modalArea.style.display = "none"
-    startGame ();
+    })
 }
