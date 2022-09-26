@@ -41,17 +41,14 @@ function chooseTable(table){
         winningActions();
         checkTie();
         turnPlayer();
-            if (controlWinBoolean === false && checkTieBoolean === true){
-                totalGamePoint++;
-                totalGameText.textContent = totalGamePoint;
-                tieScore++;
-                tieScoreText.textContent = tieScore;
-            }
-            if (controlWinBoolean === true){
+        if (controlWinBoolean === false && checkTieBoolean === true){
+
+            tieScore++;
+            tieScoreText.textContent = tieScore;
+            alert("game tie") // Will be added Custom Alert Box
+        }
+        if (controlWinBoolean === true){
             alert(`${nextPlayer} Win.`) // Will be added Custom Alert Box
-            }
-        else if (controlWinBoolean === true || checkTieBoolean === true){
-            alert("Game Tie. Please Restart The Game!")// Will be added Custom Alert Box
         }
     }
     else {
