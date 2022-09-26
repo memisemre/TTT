@@ -18,3 +18,5 @@ Technologies I used while developing the project;
 ## Change History  
 [Changelog.md](https://github.com/dev-EmreMemis/TTT/blob/main/changelog.md)
 
+## Link  
+[Click Here](https://memisemre.github.io/TTT/) to try game.
