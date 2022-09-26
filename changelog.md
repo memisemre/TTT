@@ -2,13 +2,13 @@
 ### Changelog  
 #### V2.1  
 --- 
---Add Logo
---Add Bootstrap
---Design Changed
---Removed Sweet Alert
---Removed Active Player Area 
---Removed Next Player Area
---The feature of playing the game without any player name has been removed.
+--Add Logo  
+--Add Bootstrap  
+--Design Changed  
+--Removed Sweet Alert  
+--Removed Active Player Area   
+--Removed Next Player Area  
+--The feature of playing the game without any player name has been removed.  
 #### V2  
 ---  
 --Faulty functions have been corrected.  
