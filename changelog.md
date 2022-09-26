@@ -1,7 +1,8 @@
 # **Tic Tac Toe**  
 ### Changelog  
 #### V2.1  
----
+--- 
+--Add Logo
 --Add Bootstrap
 --Design Changed
 --Removed Sweet Alert
