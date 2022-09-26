@@ -1,5 +1,13 @@
 # **Tic Tac Toe**  
 ### Changelog  
+#### V2.1  
+---
+--Add Bootstrap
+--Design Changed
+--Removed Sweet Alert
+--Removed Active Player Area 
+--Removed Next Player Area
+--The feature of playing the game without any player name has been removed.
 #### V2  
 ---  
 --Faulty functions have been corrected.  
@@ -31,6 +39,7 @@ The development process of the Tic Tac Toe game that everyone knows is over.
 -Auto Player Switching
 -Winnig Combinations
 ---  
+[#Tic Tac Toe GitHub Page](https://github.com/memisemre/TTT)
 
 [# Tic Tac Toe README.md](https://github.com/dev-EmreMemis/TTT/blob/main/README.md)
 
