@@ -18,5 +18,7 @@ Technologies I used while developing the project;
  ✔️ When the game ends in a draw, you can restart the game. You can see the number of games that ended in a draw on the leaderboard.  
  --- 
 ## Change History  
-[Changelog.md](https://github.com/dev-EmreMemis/TTT/blob/main/changelog.md)
+[Changelog.md](https://github.com/dev-EmreMemis/TTT/blob/main/changelog.md)  
+## To Do List  
+[Todo.md](https://github.com/memisemre/TTT/blob/main/todo.md)
 
