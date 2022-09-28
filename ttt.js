@@ -14,11 +14,15 @@ const playerTwoScore = document.querySelector('.player-two-score')
 const tieScoreText = document.querySelector('.tie-score');
 const playerOneInfoName = document.querySelector('.player-one-info-name')
 const playerTwoInfoName = document.querySelector('.player-two-info-name')
+const customBox = document.querySelector('.alert-box-container')
+const customBoxTitle = document.querySelector('.alert-title h1')
+const customBoxText = document.querySelector('.alert-text h3')
 let oScore = 0;
 let xScore = 0;
 let tieScore = 0;
 let controlWinBoolean = false;
 let checkTieBoolean = false;
+let stopGameBoolean = false;
 let playerOne,playerTwo,nextPlayer,timerValue,activePlayer;
 function startGame(){
     gameTable.forEach(table=> table.addEventListener('click',()=> chooseTable(table)));
@@ -42,18 +46,39 @@ function chooseTable(table){
         checkTie();
         turnPlayer();
         if (controlWinBoolean === false && checkTieBoolean === true){
-
             tieScore++;
             tieScoreText.textContent = tieScore;
-            alert("game tie") // Will be added Custom Alert Box
+            gameArea.style.display = "none";
+            customBox.style.display = "flex";
+            document.querySelector('.confirm-button').onclick = function(){
+                gameArea.style.display = "flex";
+                customBox.style.display = "none"
+            }
         }
         if (controlWinBoolean === true){
-            alert(`${nextPlayer} Win.`) // Will be added Custom Alert Box
+            gameArea.style.display = "none";
+            customBox.style.display = "flex";
+            customBoxTitle.textContent = "Game Over!"
+            customBoxText.textContent = `Player, "${nextPlayer}" Won. `
+            document.querySelector('.confirm-button').onclick = function(){
+                gameArea.style.display = "flex";
+                customBox.style.display = "none"
+            }
         }
     }
     else {
-        alert("gameover") // Will be added Custom Alert Box
+        stopGameBoolean = true;
+        gameArea.style.display = "none";
+        customBox.style.display = "flex";
+        customBoxTitle.textContent = "It's Full!"
+        customBoxText.textContent = "The place you chose is full. Please, select an empty field."
+        document.querySelector('.confirm-button button').style.marginTop = "55px"
+        document.querySelector('.confirm-button').onclick = function(){
+            gameArea.style.display = "flex";
+            customBox.style.display = "none"
+            stopGameBoolean = false;
         }
+    }
 }
 function turnPlayer(){
     if (activePlayer == playerOne) {
@@ -100,7 +125,7 @@ function checkTie(){
         checkTieBoolean = true;
 }}
 function timer (){
-    if (timerValue > 0 && controlWinBoolean == false){
+    if (timerValue > 0 && controlWinBoolean == false && checkTieBoolean == false && stopGameBoolean == false){
         if (activePlayer == playerOne){
             playerOneTimerText.textContent = timerValue;
             timerValue--;
@@ -109,6 +134,11 @@ function timer (){
             playerTwoTimerText.textContent = timerValue;
             timerValue--;
         }
+    }
+    else if (checkTieBoolean == true){
+        timerValue = 0;
+        playerOneTimerText.textContent = timerValue;
+        playerTwoTimerText.textContent = timerValue;
     }
     else if (timerValue == 0){
         if (activePlayer == playerOne){
@@ -138,7 +168,14 @@ document.querySelector('.start-button').onclick = function(){
     startGame();
     }
     else{
-        alert("enter your names")// Will be added Custom Alert Box
+        homePage.style.display = "none"
+        customBoxTitle.textContent = "Alert!"
+        customBoxText.textContent = "Please, enter your names."
+        customBox.style.display = "flex"
+        document.querySelector('.confirm-button').onclick = function(){
+            homePage.style.display = "flex";
+            customBox.style.display = "none"
+        }
     }
 }
 document.querySelector('.reset-button').onclick = function(){
