@@ -1,5 +1,9 @@
 # **Tic Tac Toe**  
 ### Changelog  
+#### V2.2  
+---
+--Add Custom Box's.
+--The problem with the timer continuing when the game ends in a draw will be removed.  
 #### V2.1  
 --- 
 --Add Logo  
