@@ -1,5 +1,9 @@
 # **Tic Tac Toe**  
 ### Changelog  
+#### V2.3  
+---
+--Added features to indicate active player.  
+--Add Meta Tag's. 
 #### V2.2  
 ---
 --Add Custom Box's.  
