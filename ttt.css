@@ -75,7 +75,8 @@ body {
     color: #9e9e9e;
     font-weight: bold;
 }
-.player-timer-area{
+.player-one-timer-area,
+.player-two-timer-area{
     width: 150px;
     height: 150px;
     border: 5px solid #757575;
@@ -85,9 +86,6 @@ body {
 .player-two-timer-area-text{
     font-weight: bold;
     font-size: 2rem;
-}
-.active-player{
-    color:white;
 }
 .score-board-area{
     width: 30rem;

@@ -33,6 +33,8 @@ function startGame(){
     playerTwoScore.textContent = oScore;
     timerValue = 5;
     setInterval(timer,1000)
+    document.querySelector('.player-one-info-name').style.color = "white"
+    document.querySelector('.player-one-timer-area').style.border = "5px solid white"
 }
 function chooseTable(table){
     if (table.textContent === "" && controlWinBoolean === false){
@@ -45,6 +47,7 @@ function chooseTable(table){
         winningActions();
         checkTie();
         turnPlayer();
+        resetGame();
         if (controlWinBoolean === false && checkTieBoolean === true){
             tieScore++;
             tieScoreText.textContent = tieScore;
@@ -59,7 +62,7 @@ function chooseTable(table){
             gameArea.style.display = "none";
             customBox.style.display = "flex";
             customBoxTitle.textContent = "Game Over!"
-            customBoxText.textContent = `Player, "${nextPlayer}" Won. `
+            customBoxText.textContent = `Player, "${nextPlayer}" Won.`
             document.querySelector('.confirm-button').onclick = function(){
                 gameArea.style.display = "flex";
                 customBox.style.display = "none"
@@ -86,8 +89,16 @@ function turnPlayer(){
         nextPlayer = playerOne;
         timerValue = 5;
         playerOneTimerText.textContent = "0";
+        document.querySelector('.player-one-info-name').style.color = "#9e9e9e";
+        document.querySelector('.player-one-timer-area').style.border = "5px solid #757575";
+        document.querySelector('.player-two-info-name').style.color = "white";
+        document.querySelector('.player-two-timer-area').style.border = "5px solid white";
     }
     else {
+        document.querySelector('.player-one-info-name').style.color = "white";
+        document.querySelector('.player-one-timer-area').style.border = "5px solid white";
+        document.querySelector('.player-two-info-name').style.color = "#9e9e9e";
+        document.querySelector('.player-two-timer-area').style.border = "5px solid #757575"
         playerTwoTimerText.textContent = "0";
         timerValue = 5;
         activePlayer = playerOne;
@@ -112,7 +123,7 @@ function winningActions (){
             oScore++;
             playerTwoScore.textContent = oScore;
         }
-        activePlayer = playerOne
+        activePlayer = playerOne;
         controlWinBoolean = true;
         timerValue = 0;
         playerOneTimerText.textContent = timerValue;
@@ -178,13 +189,19 @@ document.querySelector('.start-button').onclick = function(){
         }
     }
 }
-document.querySelector('.reset-button').onclick = function(){
-    gameTable.forEach(function(table){
-        table.textContent = "";
+function resetGame(){
+    document.querySelector('.reset-button').onclick = function(){
+        gameTable.forEach(function(table){
+            table.textContent = "";
+        })
         controlWinBoolean = false;
         checkTieBoolean = false;
         activePlayer = playerOne;
         nextPlayer = playerTwo;
         timerValue = 5;
-    })
+        document.querySelector('.player-one-info-name').style.color = "white";
+        document.querySelector('.player-one-timer-area').style.border = "5px solid white";
+        document.querySelector('.player-two-info-name').style.color = "#9e9e9e";
+        document.querySelector('.player-two-timer-area').style.border = "5px solid #757575"
+    }
 }
