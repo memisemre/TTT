@@ -44,10 +44,10 @@ Added timer and made visible in game interface.
 Add Tie Combination  
 #### Add Game The GitHub  
 ---
-The development process of the Tic Tac Toe game that everyone knows is over.
--Auto Player Switching
--Winnig Combinations
+The development process of the Tic Tac Toe game that everyone knows is over.  
+-Auto Player Switching  
+-Winnig Combinations  
 [#Tic Tac Toe GitHub Page](https://github.com/memisemre/TTT)  
-
+  
 [# Tic Tac Toe README.md](https://github.com/dev-EmreMemis/TTT/blob/main/README.md)
 
