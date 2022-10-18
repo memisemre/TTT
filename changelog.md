@@ -47,7 +47,7 @@ Add Tie Combination
 The development process of the Tic Tac Toe game that everyone knows is over.
 -Auto Player Switching
 -Winnig Combinations
-[#Tic Tac Toe GitHub Page](https://github.com/memisemre/TTT)
+[#Tic Tac Toe GitHub Page](https://github.com/memisemre/TTT)  
 
 [# Tic Tac Toe README.md](https://github.com/dev-EmreMemis/TTT/blob/main/README.md)
 
