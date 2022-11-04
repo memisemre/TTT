@@ -25,7 +25,49 @@ let checkTieBoolean = false;
 let stopGameBoolean = false;
 let playerOne,playerTwo,nextPlayer,timerValue,activePlayer;
 function startGame(){
-    gameTable.forEach(table=> table.addEventListener('click',()=> chooseTable(table)));
+    gameTable.forEach(table=> table.addEventListener('click',()=>{
+        if(table.textContent === "" && controlWinBoolean === false){
+            if (activePlayer == playerOne) table.textContent= "X";
+            else table.textContent = "O";
+            winningActions();
+            checkTie();
+            turnPlayer();
+            resetGame();
+            if (controlWinBoolean === false && checkTieBoolean === true){
+                tieScore++;
+                tieScoreText.textContent = tieScore;
+                gameArea.style.display = "none";
+                customBox.style.display = "flex";
+                document.querySelector('.confirm-button').onclick = function(){
+                    gameArea.style.display = "flex";
+                    customBox.style.display = "none"
+                }
+            }
+            if (controlWinBoolean === true){
+                gameArea.style.display = "none";
+                customBox.style.display = "flex";
+                customBoxTitle.textContent = "Game Over!"
+                customBoxText.textContent = `Player, "${nextPlayer}" Won.`
+                document.querySelector('.confirm-button').onclick = function(){
+                    gameArea.style.display = "flex";
+                    customBox.style.display = "none"
+                }
+            }
+        }
+        else {
+            stopGameBoolean = true;
+            gameArea.style.display = "none";
+            customBox.style.display = "flex";
+            customBoxTitle.textContent = "It's Full!"
+            customBoxText.textContent = "The place you chose is full. Please, select an empty field."
+            document.querySelector('.confirm-button button').style.marginTop = "55px"
+            document.querySelector('.confirm-button').onclick = function(){
+                gameArea.style.display = "flex";
+                customBox.style.display = "none"
+                stopGameBoolean = false;
+            }
+        }
+    }));
     activePlayer = playerOne;
     nextPlayer = playerTwo;
     tieScoreText.textContent = tieScore;
@@ -35,53 +77,6 @@ function startGame(){
     setInterval(timer,1000)
     document.querySelector('.player-one-info-name').style.color = "white"
     document.querySelector('.player-one-timer-area').style.border = "5px solid white"
-}
-function chooseTable(table){
-    if (table.textContent === "" && controlWinBoolean === false){
-        if (activePlayer == playerOne){
-            table.textContent= "X";
-        }
-        else {
-            table.textContent = "O";
-        }
-        winningActions();
-        checkTie();
-        turnPlayer();
-        resetGame();
-        if (controlWinBoolean === false && checkTieBoolean === true){
-            tieScore++;
-            tieScoreText.textContent = tieScore;
-            gameArea.style.display = "none";
-            customBox.style.display = "flex";
-            document.querySelector('.confirm-button').onclick = function(){
-                gameArea.style.display = "flex";
-                customBox.style.display = "none"
-            }
-        }
-        if (controlWinBoolean === true){
-            gameArea.style.display = "none";
-            customBox.style.display = "flex";
-            customBoxTitle.textContent = "Game Over!"
-            customBoxText.textContent = `Player, "${nextPlayer}" Won.`
-            document.querySelector('.confirm-button').onclick = function(){
-                gameArea.style.display = "flex";
-                customBox.style.display = "none"
-            }
-        }
-    }
-    else {
-        stopGameBoolean = true;
-        gameArea.style.display = "none";
-        customBox.style.display = "flex";
-        customBoxTitle.textContent = "It's Full!"
-        customBoxText.textContent = "The place you chose is full. Please, select an empty field."
-        document.querySelector('.confirm-button button').style.marginTop = "55px"
-        document.querySelector('.confirm-button').onclick = function(){
-            gameArea.style.display = "flex";
-            customBox.style.display = "none"
-            stopGameBoolean = false;
-        }
-    }
 }
 function turnPlayer(){
     if (activePlayer == playerOne) {
@@ -132,9 +127,8 @@ function winningActions (){
 function checkTie(){
     const tieFunctionValues = [];
     gameTable.forEach(table => tieFunctionValues.push(table.textContent))
-    if (!tieFunctionValues.includes("")) {
-        checkTieBoolean = true;
-}}
+    if (!tieFunctionValues.includes("")) checkTieBoolean = true;
+}
 function timer (){
     if (timerValue > 0 && controlWinBoolean == false && checkTieBoolean == false && stopGameBoolean == false){
         if (activePlayer == playerOne){
@@ -152,17 +146,11 @@ function timer (){
         playerTwoTimerText.textContent = timerValue;
     }
     else if (timerValue == 0){
-        if (activePlayer == playerOne){
-            playerOneTimerText.textContent = timerValue;
-        }
-        else if (activePlayer == playerTwo){
-            playerTwoTimerText.textContent = timerValue; 
-        }
+        if (activePlayer == playerOne) playerOneTimerText.textContent = timerValue;
+        else if (activePlayer == playerTwo) playerTwoTimerText.textContent = timerValue; 
         turnPlayer()
     }
-   else (
-    clearInterval()
-   )
+   else clearInterval()
 }
 document.querySelector('.start-button').onclick = function(){
     if(playerOneInput.value !=="" && playerTwoInput.value !== ""){
@@ -190,18 +178,18 @@ document.querySelector('.start-button').onclick = function(){
     }
 }
 function resetGame(){
-    document.querySelector('.reset-button').onclick = function(){
+    document.querySelector('.reset-button').addEventListener("click",()=>{
         gameTable.forEach(function(table){
             table.textContent = "";
-        })
+        });
         controlWinBoolean = false;
         checkTieBoolean = false;
         activePlayer = playerOne;
         nextPlayer = playerTwo;
         timerValue = 5;
-        document.querySelector('.player-one-info-name').style.color = "white";
+        playerOneInfoName.style.color = "white";
         document.querySelector('.player-one-timer-area').style.border = "5px solid white";
-        document.querySelector('.player-two-info-name').style.color = "#9e9e9e";
+        playerTwoInfoName.style.color = "#9e9e9e";
         document.querySelector('.player-two-timer-area').style.border = "5px solid #757575"
-    }
-}
+         }
+    )}
